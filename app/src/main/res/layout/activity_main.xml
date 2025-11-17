@@ -73,6 +73,13 @@
         tools:layout_editor_absoluteX="308dp"
         tools:layout_editor_absoluteY="17dp" />
     </LinearLayout>
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="insert your name" />
 
     <TextView
         android:id="@+id/number1"
@@ -121,5 +128,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Score Page" />
+
+
 
 </LinearLayout>

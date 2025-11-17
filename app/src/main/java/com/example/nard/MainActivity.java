@@ -1,12 +1,15 @@
 package com.example.nard;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,12 +29,13 @@ private TextView random1,random2,random3,random4,random5,random6,score;
     public static int numberGames=0;
     private Button btnScore;
     private Intent intent;
-
-
+    private EditText name;
+private int counter;
 
     private int displayedNumber = 0;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,15 +45,16 @@ private TextView random1,random2,random3,random4,random5,random6,score;
         intent = new Intent(MainActivity.this, nard2.class);
 
         number = findViewById(R.id.number1);
+        name=findViewById(R.id.name);
         start = findViewById(R.id.Start);
         newGame = findViewById(R.id.New);
-random1=findViewById(R.id.random1);
-random2=findViewById(R.id.random2);
-random3=findViewById(R.id.random3);
-random4=findViewById(R.id.random4);
-random5=findViewById(R.id.random5);
-random6=findViewById(R.id.random6);
-score=findViewById(R.id.score);
+        random1=findViewById(R.id.random1);
+        random2=findViewById(R.id.random2);
+        random3=findViewById(R.id.random3);
+        random4=findViewById(R.id.random4);
+        random5=findViewById(R.id.random5);
+        random6=findViewById(R.id.random6);
+        score=findViewById(R.id.score);
         number.setText("0");
         start.setText("START");
         start.setBackgroundColor(Color.GREEN);
@@ -97,8 +102,8 @@ score=findViewById(R.id.score);
                 random4.setBackgroundColor(Color.WHITE);
                 random5.setBackgroundColor(Color.WHITE);
                 random6.setBackgroundColor(Color.WHITE);
-                count=0;
-                score.setText(count+"of 6");
+                counter=0;
+                score.setText(0+"of 6");
                 numberGames++;
             }
         });
@@ -110,6 +115,7 @@ score=findViewById(R.id.score);
                     start.setText("STOP");
                     start.setBackgroundColor(Color.RED);
                     handler.post(runnable);
+                    counter++;
                 } else {
                     isStart = false;
                     start.setText("START");
@@ -153,7 +159,7 @@ score=findViewById(R.id.score);
                     countCorrect++;
                 }
 
-            if (count>=6){
+            if (counter>=6){
                 score.setText("0of 6");
                 random11=(int)(Math.random()*(100 - 10 + 1))+ 10;
                 random21=(int)(Math.random()*(100 - 10 + 1))+ 10;
@@ -167,8 +173,9 @@ score=findViewById(R.id.score);
                 random4.setText(random41+"") ;
                 random5.setText(random51+"");
                 random6.setText(random61+"");
-                count=0;
-                score.setText(count+"of 6");
+                counter=0;
+                Toast.makeText(MainActivity.this, "you can't press more than 6 times", Toast.LENGTH_SHORT).show();
+                score.setText(0+"of 6");
                 numberGames++;
             }
             }
@@ -177,7 +184,9 @@ score=findViewById(R.id.score);
         btnScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                intent.putExtra("NAME",name.getText().toString());
                 startActivity(intent);
+
             }
         });
     }
